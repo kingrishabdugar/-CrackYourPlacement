@@ -1,0 +1,103 @@
+
+https://leetcode.com/problems/3sum/
+
+Optimal Approach:
+
+class Solution {
+public:
+    vector<vector<int> > threeSum(vector<int> &nums) {
+    
+        vector<vector<int>>res;
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<n-2;i++) // the third element from last is the last suitable target
+        {
+            int tgt = -nums[i];
+            int lo = i+1;
+            int hi = n-1;
+            if(i==0 || i>0 && nums[i]!=nums[i-1]) {
+
+                //this removes duplicate targets in the next iteration before staring the two pointer approach
+
+                while(lo<hi)
+                {
+                    vector<int> trp;
+                    if(nums[lo]+nums[hi] == tgt)
+                    {
+                        trp={nums[i],nums[lo],nums[hi]};
+                        res.push_back(trp);
+                        while(lo<hi && nums[lo]==nums[lo+1]) lo++; 
+         //this eventually lands me to the last duplicate and not after it :p
+                        while(lo<hi && nums[hi]==nums[hi-1]) hi--;
+                        
+                        lo++;
+                        hi--;
+    //doing this again since we are at the last duplicate and must move on , also if no duplicates are there then we must move fwd
+                    }
+                    else if (nums[lo]+nums[hi]<tgt)
+                        lo++;
+                    else
+                        hi--;
+                }
+            } // end of if
+                
+        }// end of for 
+        
+        return res;
+        
+    }// end of function
+    
+};
+
+
+
+Naive : TLE Approach
+HashMap + Set
+
+class Solution {
+public:
+    vector<vector<int> > threeSum(vector<int> &nums) {
+    
+        sort(nums.begin(),nums.end());
+        vector<vector<int>>res;
+        int n=nums.size();
+        unordered_map<int,int>mp;
+        set<vector<int>>st;
+        vector<int>temp;
+        for(auto x:nums)
+        {
+            mp[x]++;
+        }
+        if(mp[0]==nums.size() && n>2)
+        {
+            res.push_back({0,0,0});
+            return res;
+        }
+        for(int i=0;i<n-2;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                int a=nums[i];
+                mp[a]--; // removing from Map so that it doesn't find itself eg -4+2 = -2 finds -(-2) i.e 2 itself
+                int b=nums[j];
+                mp[b]--;
+                int sum=0-(a+b);
+                if(mp.find(sum) != mp.end() && mp[sum]>0)
+                {
+                 temp={a,b,sum};
+                 sort(temp.begin(),temp.end());
+                 st.insert(temp);
+                }
+                
+                mp[b]++;
+                mp[a]++;
+            }
+        }
+        for(auto x:st)
+        {
+            res.push_back(x);
+        }
+        return res;
+    }
+    
+};

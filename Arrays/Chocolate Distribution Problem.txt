@@ -1,0 +1,20 @@
+https://practice.geeksforgeeks.org/problems/chocolate-distribution-problem3825/1/#
+
+//Sort the Array
+//Take Subarrays calculating minimum diff from last and start of the subarray
+
+class Solution{
+    public:
+    long long findMinDiff(vector<long long> a, long long n, long long m){
+    //code
+    long long mindiff=INT_MAX;
+    sort(a.begin(),a.end());
+    for(long long i=0;i<n-m+1;i++) // for an array of length n and subarray size m maximum number of subarrays is n-m+1
+    {
+        mindiff=min(mindiff,(a[i+m-1]-a[i])); //a[i+m-1] means the last element of the given subarray
+    }
+    return mindiff;
+    
+    }   
+};
+

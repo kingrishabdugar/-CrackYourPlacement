@@ -1,0 +1,25 @@
+https://leetcode.com/problems/implement-strstr/submissions/
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int count=0;
+        int n=haystack.size(),m=needle.size();
+        if (m==0) return 0;
+        for(int i=0;i<=n-m;i++)
+        {
+            int j;
+            for(j=0;j<m;j++)
+            {
+                if(needle[j]!=haystack[i+j])
+                    break;
+            }
+            if(j==m)
+                return i;
+        }
+        return -1;
+    }
+};
+
+
+better Implementation : KMP 

@@ -1,0 +1,21 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+
+//Since, you can hold only 1 stock at a time. The problem becomes really simple. Just add up the differences between two consecutive days (if profitable).
+//Here, you might intuitively think that, holding for more days might yield more profit in some cases.
+//In short capture all profits throughout the array
+
+C++ Solution (4ms) :
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int profit = 0, n = prices.size();
+        
+        for (int i=1; i<n; ++i) {
+            if(prices[i] > prices[i-1])
+                profit += prices[i]-prices[i-1];
+        }
+        
+        return profit;
+    }
+};

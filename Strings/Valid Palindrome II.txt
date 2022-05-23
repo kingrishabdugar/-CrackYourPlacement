@@ -1,0 +1,34 @@
+https://leetcode.com/problems/valid-palindrome-ii/
+
+class Solution {
+public:
+    bool checkpartial(string s,int lo,int hi)
+    {
+        while(lo<hi)
+        {
+            if(s[lo]!=s[hi])
+                return false;
+            lo++;
+            hi--;
+        }
+        return true;
+    }
+    
+    bool validPalindrome(string s) {
+       
+        int lo=0;
+        int hi=s.size()-1;
+        while(lo<hi)
+        {
+            if(s[lo]!=s[hi])
+            {
+                return ( checkpartial(s,lo+1,hi) || checkpartial(s,lo,hi-1) );
+                //simply skip 1 character if they aren't matching
+            }
+            lo++;
+            hi--;
+        }
+        return true;
+    }
+};
+

@@ -1,0 +1,20 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+//We cannot Go back in time ,Also we must buy and sell at different days
+//Traverse the array find curr min buy price , find curr max sell price if curr are not max or min retain original otherwise update
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        
+        int n=prices.size();
+        int profit=INT_MIN;
+        int buy=INT_MAX;
+        for(int i=0;i<n;i++)
+        {
+            buy=min(buy,prices[i]);
+            profit=max(profit,prices[i]-buy);
+        }
+        return profit;
+    }
+};
